@@ -17,13 +17,11 @@ const SeccionHome = ({title, children}: IProp) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingVertical: 15,
   },
   title: {
     color: '#989898',
     fontSize: 14,
-    lineHeight: 19.12,
     marginBottom: 20,
   },
   children: {
