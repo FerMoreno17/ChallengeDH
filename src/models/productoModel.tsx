@@ -3,7 +3,7 @@ export class Producto {
   product?: string;
   points?: number;
   image?: string;
-  is_redemtion?: boolean;
+  is_redemption?: boolean;
   id?: number;
 
   public constructor(init?: Partial<Producto>) {

@@ -12,31 +12,38 @@ import {
 import {RootStackParamList} from '../App';
 import Boton from '../components/boton';
 import SeccionDetalle from '../components/seccionDetalle';
+import {useAppSelector} from '../redux/store';
+import {getParseDate} from '../utils/parseDate.helper';
 
 const Detalle = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const {item} = useAppSelector(state => state.challenge);
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={'#CFD6FF'} />
       <View style={styles.header}>
-        <Text style={styles.titulo}>Nombre del producto</Text>
+        <Text style={styles.titulo}>{item.product}</Text>
       </View>
       <View style={styles.main}>
         <View style={styles.body}>
           <View style={styles.imageContainer}>
-            <Image source={require('../assets/imageIcon.png')} />
+            <Image source={{uri: item.image}} style={styles.image} />
           </View>
           <View style={styles.detalleContainer}>
             <SeccionDetalle
               nombreSeccion={'Detalle del producto:'}
-              contenido={'Comprado el 26 de enero, 2019'}
+              contenido={getParseDate(item.createdAt!)}
               contenidoSize={16}
             />
             <SeccionDetalle
-              nombreSeccion={'Con esta compra acumulaste:'}
-              contenido={'100 puntos'}
+              nombreSeccion={
+                item.is_redemption
+                  ? 'Con esta acción canjeaste'
+                  : 'Con esta compra acumulaste:'
+              }
+              contenido={`${item.points} puntos`}
               contenidoSize={24}
             />
           </View>
@@ -93,6 +100,10 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  image: {
+    width: 300,
+    height: 300,
   },
   detalleContainer: {
     flex: 2,
