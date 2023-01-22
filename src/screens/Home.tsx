@@ -70,7 +70,7 @@ function Home(): JSX.Element {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={'#F4F4F4'} />
+      <StatusBar backgroundColor={'#F4F4F4'} barStyle={'dark-content'}/>
       <View style={styles.main}>
         <View style={styles.body}>
           <View style={styles.bienvenidaContainer}>
