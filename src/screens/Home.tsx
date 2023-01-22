@@ -17,6 +17,7 @@ import {setListado} from '../redux/challengeReducer';
 import {useAppSelector} from '../redux/store';
 import {Dimensions} from 'react-native';
 import {Producto} from '../models/productoModel';
+import {getCurrentMonth} from '../utils/parseDate.helper';
 
 function Home(): JSX.Element {
   const dispatch = useDispatch();
@@ -64,13 +65,29 @@ function Home(): JSX.Element {
     }
   }
 
+  function getTotalPoints() {
+    if (listado) {
+      let total = 0;
+      let validPoints = listado.filter(item => item.is_redemption === false);
+      validPoints.forEach(function (item) {
+        total = total + item.points!;
+      });
+
+      let partesNumero = total.toString().split('.');
+      partesNumero[0] = partesNumero[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return partesNumero.join('.');
+    } else {
+      return 'cargando';
+    }
+  }
+
   if (loading || listado === undefined) {
     <ActivityIndicator size={'large'} color={'#334FFA'} />;
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={'#F4F4F4'} barStyle={'dark-content'}/>
+      <StatusBar backgroundColor={'#F4F4F4'} barStyle={'dark-content'} />
       <View style={styles.main}>
         <View style={styles.body}>
           <View style={styles.bienvenidaContainer}>
@@ -81,7 +98,10 @@ function Home(): JSX.Element {
             <SeccionHome
               title={'TUS PUNTOS'}
               children={
-                <PuntosCard mes={'Diciembre'} totalPuntos={'10,00.00'} />
+                <PuntosCard
+                  mes={getCurrentMonth().toString().toUpperCase()}
+                  totalPuntos={getTotalPoints()}
+                />
               }
             />
             {/*hacer le flatlist */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import {ActivityIndicator} from 'react-native';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 
 interface IProp {
@@ -10,7 +11,11 @@ const PuntosCard = ({mes, totalPuntos}: IProp) => {
   return (
     <View style={styles.container}>
       <Text style={styles.mes}>{mes}</Text>
-      <Text style={styles.totalPuntos}>{totalPuntos + ' pts'}</Text>
+      {totalPuntos === 'cargando' ? (
+        <ActivityIndicator size={'large'} color={'white'} />
+      ) : (
+        <Text style={styles.totalPuntos}>{totalPuntos + ' pts'}</Text>
+      )}
     </View>
   );
 };

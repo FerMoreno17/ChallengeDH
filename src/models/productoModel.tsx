@@ -1,5 +1,5 @@
 export class Producto {
-  createdAt?: Date;
+  createdAt?: string;
   product?: string;
   points?: number;
   image?: string;
