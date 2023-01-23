@@ -43,7 +43,7 @@
   "jest": {
     "preset": "react-native",
     "setupFiles": [
-      "/Users/macdev00g2/Desktop/repoFer/ChallengeDH/jest/setup.js"
+      "./jest/setup.js"
     ]
   }
 }
